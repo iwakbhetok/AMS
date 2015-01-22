@@ -1,0 +1,636 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html{
+	background-color: RGB(30,45,60);
+	width: 100%;
+	height: 100%;
+}
+
+img.bg {
+	/* Set rules to fill background */
+	min-height: 100%;
+	min-width: 1024px;
+	
+	/* Set up proportionate scaling */
+	width: 100%;
+	height: auto;
+	
+	/* Set up positioning */
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+@media screen and (max-width: 1040px) { /* Specific to this particular image */
+	img.bg {
+		left: 50%;
+		margin-left: -520px;   /* 50% */
+	}
+}
+
+
+/*------------------------------------*\
+		$TRANSITION LOGIC
+\*------------------------------------*/
+
+.download #download{
+	display: block;
+}
+.install-chrome #install-chrome{
+	display: block;
+}
+.install-firefox #install-firefox{
+	display: block;
+}
+.install-ie10 #install-ie10{
+	display: block;
+}
+.install-ie9 #install-ie9{
+	display: block;
+}
+.install-ie8 #install-ie8{
+	display: block;
+}
+.install-safari #install-safari{
+	display: block;
+}
+
+
+
+/*------------------------------------*\
+		$GENERAL
+\*------------------------------------*/
+
+body{
+	font-family: helvetica;
+}
+h1, h2, h3 p, li{
+	color: RGB(255,255,255);
+}
+h1{
+	font-size: 2.2em;
+	line-height: 1.3em;
+	font-weight: 600;
+	text-align: center;
+	text-shadow: 0px 0px 2px #000000;
+	filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+h2{
+	font-size: 1.1em;
+	line-height: 1.5em;
+	font-weight: normal;
+	text-align: center;
+}
+p{
+	font-size: 13px;
+	line-height: 18px;
+}
+a:visited{
+	color: white;
+}
+.container{
+	position: absolute;
+		top: 50%;
+		left: 50%;
+	margin-top: -160px;
+}
+.dark-bg{
+	width: 100%;
+	height: 100%;
+	background-color: RGBA(0,0,0,.5);
+	position: absolute;
+		top: 0px;
+		left: 0px;
+}
+
+
+
+/*------------------------------------*\
+		$DOWNLOAD
+\*------------------------------------*/
+
+#download{
+	display: none;
+	width: 800px;
+	margin-left: -400px;
+}
+
+#download.addphoto{
+	width: 800px;
+	margin-left: -400px;
+	margin-top: -220px;
+}
+
+#download h1{
+	margin-bottom: 10px;
+}
+
+#download.addphoto h1{
+	font-size: 1.4em;
+	font-weight: 400;
+	margin: 20px 0px 8px 0px;
+}
+
+#download h1 span{
+	color: RGB(250,210,60);
+}
+
+#download h2{
+	color: RGB(225, 225, 225);
+	text-align: center;
+	font-size: 1.1em;
+	line-height: 1.5em;
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+
+#download .silhouette{
+	display: table;
+	margin: 0 auto;
+	margin-bottom: 8px;
+}
+
+
+/*------------------------------------*\
+		$DOWNLOAD (ARROW)
+\*------------------------------------*/
+
+.arrow-container{
+	position: relative;
+		left: 50%;
+		margin-left: -165px;
+}
+#download .arrow-container img{
+	display: inline-block;
+	vertical-align: top;
+	height: 70px;
+}
+#download .arrow-container h2{
+	display: inline-block;
+	vertical-align: bottom;
+	max-width: 250px;
+	margin-left: 15px;
+}
+
+
+/*------------------------------------*\
+		$DOWNLOAD (MUTUAL FRIENDS)
+\*------------------------------------*/
+
+.v3 .mutual-container{
+	display: block;
+}
+.mutual-container{
+	display: none;
+	width: 400px;
+	margin: 0 auto;
+	margin-top: 40px;
+	text-align: center;
+}
+.mutual-container img{
+	margin-bottom: 8px;
+}
+.mutual-container p{
+	color: white;
+	font-size: 14px;
+	line-height: 20px;
+}
+.mutual-container span{
+	color: RGB(250,210,60);
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL
+\*------------------------------------*/
+
+.install{
+	display: none;
+	opacity: 0;
+	-webkit-transition: opacity 1s ease;
+    -o-transition: opacity 1s ease;
+    -moz-transition: opacity 1s ease;
+    transition: opacity 1s ease;
+}
+.install.show{
+	opacity: 1;
+}
+.install h1{
+	color: RGB(255,255,255);
+	font-size: 1.2em;
+	line-height: 40px;
+}
+.install .tips{
+	position: absolute;
+}
+.install .tips h1{
+	text-align: left;
+}
+.install ol{
+	list-style-type: decimal;
+}
+.install li{
+	color: RGB(255,255,255);
+	font-size: 1.1em;
+}
+.install li b{
+	color: RGB(250,210,60);
+}
+.install .helper{
+	padding: 13px;
+	border: 1px solid RGB(150,150,150);
+	background: #fcfcfc; /* Old browsers */
+	background: -moz-linear-gradient(top, #fcfcfc 0%, #f0f0f0 100%); 
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#f0f0f0)); 
+	background: -webkit-linear-gradient(top, #fcfcfc 0%,#f0f0f0 100%); 
+	background: -o-linear-gradient(top, #fcfcfc 0%,#f0f0f0 100%); 
+	background: -ms-linear-gradient(top, #fcfcfc 0%,#f0f0f0 100%); 
+	background: linear-gradient(to bottom, #fcfcfc 0%,#f0f0f0 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#f0f0f0',GradientType=0 ); 
+	position: absolute;
+	border-radius: 4px;
+	-webkit-transition: top .2s ease;
+    -o-transition: top .2s ease;
+    -moz-transition: top .2s ease;
+    transition: top .2s ease;
+}
+.install .helper:before, .install .helper:after{
+	content: "";
+	position: absolute;	
+	width: 0;
+	height: 0px;
+	border-right: 12px solid transparent;
+	border-left: 12px solid transparent;
+}
+.install .helper:before{
+	border-bottom: 12px solid RGB(150,150,150);
+}
+.install .helper:after{
+	border-bottom: 12px solid RGB(150,150,150);
+}
+.install .helper p{
+	font-size: 15px;
+	font-family: arial;
+	font-weight: 600;
+	text-align: center;
+}
+
+
+/*------------------------------------*\
+		$INSTALL-CHROME GENERAL
+\*------------------------------------*/
+
+#install-chrome .helper{
+	padding: 15px;
+	width: 385px;
+	border: 1px solid RGB(203,204,141);
+	background: #f9edc4; /* Old browsers */
+	background: -moz-linear-gradient(top, #f9edc4 0%, #f6e29a 99%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f9edc4), color-stop(99%,#f6e29a));
+	background: -webkit-linear-gradient(top, #f9edc4 0%,#f6e29a 99%);
+	background: -o-linear-gradient(top, #f9edc4 0%,#f6e29a 99%);
+	background: -ms-linear-gradient(top, #f9edc4 0%,#f6e29a 99%);
+	background: linear-gradient(to bottom, #f9edc4 0%,#f6e29a 99%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9edc4', endColorstr='#f6e29a',GradientType=0 );
+	top: 300px;
+	left: 50%;
+	margin-left: -192px;
+	border-radius: 0px 0px 4px 4px;
+}
+#install-chrome .helper.show{
+	top: 319px;
+}
+#install-chrome .helper:before, #install-chrome .helper:after {
+	display: none;
+}
+#install-chrome .helper p{
+	font-size: 15px;
+}
+#install-chrome .tips{
+	top: 60px;
+	right: 200px;
+}
+#install-chrome ol{
+	width: 180px;
+}
+
+
+/*------------------------------------*\
+		$INSTALL-CHROME VARIATIONS
+\*------------------------------------*/
+
+#install-chrome.winXP .helper{
+	width: 385px;
+	margin-left: -193px;
+}
+#install-chrome.winXP .helper.show{
+	top: 304px;
+}
+#install-chrome.win7 .helper{
+	width: 385px;
+	margin-left: -192px;
+}
+#install-chrome.win7 .helper.show{
+	top: 319px;
+}
+#install-chrome.win8 .helper{
+	width: 372px;
+	margin-left: -186px;
+}
+#install-chrome.win8 .helper.show{
+	top: 319px;
+}
+#install-chrome.mac .helper{
+	top: 260px;
+	width: 468px;
+	margin-left: -234px;
+}
+#install-chrome.mac .helper.show{
+	top: 266px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-FIREFOX
+\*------------------------------------*/
+
+#install-firefox .helper{
+	top: 108px;
+	left: 30px;
+}
+#install-firefox .helper.show{
+	top: 112px;
+}
+#install-firefox .helper:before{
+	top: -12px;
+	right: 60px;
+	border-bottom: 12px solid RGB(150,150,150);
+}
+#install-firefox .helper:after{
+	top: -11px;
+	right: 60px;
+	border-bottom: 12px solid RGB(252,252,252);
+}
+#install-firefox .tips{
+	top: 270px;
+	left: 85px;
+}
+#install-firefox ol{
+	width: 290px;
+}
+
+/*------------------------------------*\
+		$INSTALL-FIREFOX VARIATIONS
+\*------------------------------------*/
+
+/* XP, Win7, and Win8 are all the same... */
+/* FF < 15 is too much hassle to bother.. */
+#install-firefox.mac .helper{
+	top: 128px;
+	left: 24px;
+}
+#install-firefox.mac .helper.show{
+	top: 136px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-IE10 - NOT DETECTED
+\*------------------------------------*/
+
+#install-ie10 .helper{
+	bottom: 50px;
+	left: 50%;
+	margin-left: 22px;
+}
+#install-ie10 .helper.show{
+	bottom: 63px;
+}
+#install-ie10 .helper:before{
+	bottom: -12px;
+	right: 60px;
+	border-bottom: none;
+	border-top: 12px solid RGB(150,150,150);
+}
+#install-ie10 .helper:after{
+	bottom: -11px;
+	right: 60px;
+	border-bottom: none;
+	border-top: 12px solid RGB(242,242,242);
+}
+#install-ie10 .tips{
+	top: 120px;
+	left: 200px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-IE10 VARIATIONS
+\*------------------------------------*/
+
+#install-ie10.win8 .helper{
+	bottom: 30px;
+}
+#install-ie10.win8 .helper.show{
+	bottom: 40px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-IE9 (Win 7)
+\*------------------------------------*/
+
+#install-ie9 .helper{
+	bottom: 100px;
+	left: 50%;
+	margin-left: 14px;
+}
+#install-ie9 .helper:before{
+	bottom: -12px;
+	right: 60px;
+	border-bottom: none;
+	border-top: 12px solid RGB(150,150,150);
+}
+#install-ie9 .helper:after{
+	bottom: -11px;
+	right: 60px;
+	border-bottom: none;
+	border-top: 12px solid RGB(242,242,242);
+}
+#install-ie9 .tips{
+	top: 120px;
+	left: 200px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-IE9 VARIATIONS
+\*------------------------------------*/
+
+#install-ie9.win8 .helper{
+	bottom: 65px;
+	margin-left: 0px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-IE8
+\*------------------------------------*/
+
+
+#install-ie8 .helper:before, #install-ie8 .helper:after{
+	border-top: 12px solid transparent;
+	border-bottom: 12px solid transparent;
+}
+#install-ie8 .helper{
+	width: 300px;
+	height: 45px;
+	top: 15%;
+	left: 10%;
+}
+#install-ie8 .helper:before{
+	top: 10px;
+	right: -12px;
+	border-right: none;
+	border-left: 12px solid RGB(150,150,150);
+}
+#install-ie8 .helper:after{
+	top: 10px;
+	right: -11px;
+	border-right: none;
+	border-left: 12px solid RGB(246,246,246);
+}
+#install-ie8 .tips{
+	bottom: 120px;
+	left: 200px;
+}
+
+
+
+/*------------------------------------*\
+		$INSTALL-SAFARI
+\*------------------------------------*/
+
+#install-safari .tips{
+	top: 60px;
+	right: 200px;
+}
+#install-safari ol{
+	width: 240px;
+}
+
+
+
+/*------------------------------------*\
+		$BUTTON STYLES
+\*------------------------------------*/
+
+.button-container-center{
+	display: table;
+	margin: auto;
+}
+.button-container{
+	position: relative;
+	margin-top: 10px;
+	float:left;
+}
+.button-container .button{
+	width: auto;
+	height: 65px;
+	font-size: 1.2em;
+	line-height: 40px;
+	font-weight: bold;
+	text-align: left;
+	text-shadow: 0px 1px 0px RGB(250,220,120);
+	filter: dropshadow(color=RGB(250,220,120), offx=0, offy=1);
+	padding: 0px 60px 0px 20px;
+	margin-top: 0px;
+	background-repeat: no-repeat;
+	background-position: right center;
+	background: rgb(250,220,100); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(250,220,100,1) 0%, rgba(249,158,30,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(250,220,100,1)), color-stop(100%,rgba(249,158,30,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(250,220,100,1) 0%,rgba(249,158,30,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(250,220,100,1) 0%,rgba(249,158,30,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(250,220,100,1) 0%,rgba(249,158,30,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(250,220,100,1) 0%,rgba(249,158,30,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fadc64', endColorstr='#f99e1e',GradientType=0 ); /* IE6-9 */	
+	border: 1px solid RGB(249,158,38);
+	border-radius: 4px;
+	cursor: pointer;
+}
+.button-container:hover{
+	-webkit-box-shadow: 0px 0px 10px 1px rgba(250, 220, 100, .5);
+	box-shadow: 0px 0px 10px 1px rgba(250, 220, 100, .5);
+}
+.button-container:hover .button{
+	background: rgb(255,225,105); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(255,225,105,1) 0%, rgba(255,164,35,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,225,105,1)), color-stop(100%,rgba(255,164,35,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,225,105,1) 0%,rgba(255,164,35,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,225,105,1) 0%,rgba(255,164,35,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,225,105,1) 0%,rgba(255,164,35,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,225,105,1) 0%,rgba(255,164,35,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe169', endColorstr='#ffa423',GradientType=0 ); /* IE6-9 */
+	border-color: RGB(230,140,20);
+}
+.button-container .button.pressed{
+	-webkit-box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, .2);
+	box-shadow: inset 0px 0px 9px 0px rgba(0, 0, 0, .2);
+	background: rgb(250,175,30); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(250,175,30,1) 0%, rgba(250,190,80,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(250,175,30,1)), color-stop(100%,rgba(250,190,80,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(250,175,30,1) 0%,rgba(250,190,80,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(250,175,30,1) 0%,rgba(250,190,80,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(250,175,30,1) 0%,rgba(250,190,80,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(250,175,30,1) 0%,rgba(250,190,80,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faaf1e', endColorstr='#fabe50',GradientType=0 ); /* IE6-9 */
+}
+.button-container .button-arrow{
+	position: absolute;
+		right: 20px;
+		top: 10px;
+    -webkit-animation: bounce 1s infinite ease-in-out;
+    -moz-animation: bounce 1s infinite ease-in-out;
+    -o-animation: bounce 1s infinite ease-in-out;
+    animation: bounce 1s infinite ease-in-out;
+    cursor: pointer;
+    
+}
+
+
+
+/*------------------------------------*\
+		$BUTTON ANIMATION
+\*------------------------------------*/
+
+@-webkit-keyframes bounce {
+    0% { top: 10px; }
+   50% { top: 23px; }
+  100% { top: 10px; }
+}
+@-moz-keyframes bounce {
+   0%  { top: 5px; }
+   50% { top: 18px; }
+  100% { top: 5px; }
+}
+@-o-keyframes bounce {
+   0%  { top: 5px; }
+   50% { top: 18px; }
+  100% { top: 5px; }
+}
+@keyframes bounce {
+	0% { top: 8px; }
+   50% { top: 18px; }
+  100% { top: 8px; }
+}

@@ -1,0 +1,59 @@
+<IfModule mod_rewrite.c>
+    #Menghilangkan munculnya index.php di url
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+
+    #Menghindari duplikasi kontent
+    #RewriteRule ^(welcome(/index)?|index(\.php)?)/?$ / [L,R=301]
+    #RewriteRule ^(.*)/index/?$ $1 [L,R=301]
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteRule ^(.+)/$ $1 [L,R=301]
+
+    #Cek apakah user mencoba mengakses daerah terlarang, dalam hal ini file gambar atau css.
+    #jika iya, lempar mereka ke halaman index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+
+    #Hindari akses directory secara langsung via url
+    Options All -Indexes
+
+    #Wildcard subdomain
+    #Codeigniter specific rule
+    #RewriteCond %{REQUEST_URI} ^system.*
+    #RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+    #Codeigniter specific rule
+    #RewriteCond %{REQUEST_URI} ^application.*
+    #RewriteRule ^(.*)$ /index.php?/$1 [L]
+
+    #This rule removes www from the URL if its used
+    #RewriteCond %{HTTP_HOST} ^www.
+    #RewriteRule ^(.*)$ http://xinbisnis.com/$1 [R=301,L]
+    #the auth system URIs which don't have subdomains
+    #RewriteCond %{HTTP_HOST} ^xinbisnis.
+    #RewriteRule ^(signup|signin|forgot_password)/?$ index.php?/auth/$1 [L]
+
+    #This rule handles the subdomains
+    #RewriteCond %{HTTP_HOST} ^([a-z0-9]+).xinbisnis.com
+    #RewriteRule ^(.*)$ xinbisnis.com/member/store/%1/$1 [L]
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond %{HTTP_HOST} ^(www\.)?([a-z][a-z0-9\-]*)\. [NC]
+    #RewriteRule .* http://xinbisnis.com/member/%2
+
+    #Anti Canonicalization
+    #RewriteCond %{HTTP_HOST} ^abc.com
+    #RewriteRule (.*) http://www.abc.com/$1 [R=301,L]
+    #RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+    #RewriteRule ^index\.html$ http://www.abc.com/ [R=301,L]
+</IfModule>
+ 
+<IfModule !mod_rewrite.c>
+    #If we don't have mod_rewrite installed, all 404's
+    #Can be sent to index.php, and everything works as normal.
+    #Submitted by: ElliotHaughin
+    ErrorDocument 404 /index.php
+</IfModule>
