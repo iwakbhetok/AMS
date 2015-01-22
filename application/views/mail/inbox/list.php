@@ -19,10 +19,13 @@ if (!defined('BASEPATH'))
 
 <section class="vbox">
     <header class="header bg-dark lt box-shadow">
+		<?php $job_title_id = array(6,13,18); if (in_array($this->session->userdata('job_title_id'), $job_title_id)) { ?>     
         <a href="<?php echo base_url('mail/inbox/add') ?>" class="btn btn-info btn-sm pull-right"> 
             <i class="glyphicon glyphicon-plus"></i> 
             Tambah Surat Masuk
         </a> 
+		<?php }
+			?>
         <p class="h4 font-thin m-r m-b-sm">Daftar Surat Masuk</p>
     </header>
     <section class="scrollable">
@@ -63,7 +66,7 @@ if (!defined('BASEPATH'))
 										<tr>                
 											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
 											<td width="15%"><?php echo $r->mail_number; ?></td>                     
-											<td width="15%"><?php echo $r->mail_date; ?></td> 
+											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
 											<td width="25%"><?php echo $r->mail_subject; ?></td>
 											<td width="15%">
 												<?php if ($r->mail_type == '1') { ?>
@@ -117,14 +120,15 @@ if (!defined('BASEPATH'))
 										<tr>                
 											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
 											<td width="15%"><?php echo $r->mail_number; ?></td>                     
-											<td width="15%"><?php echo $r->mail_date; ?></td> 
+											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
 											<td width="25%"><?php echo $r->mail_subject; ?></td>
+											<td width="25%"><?php echo $r->job_title_name; ?></td>
 											<td width="15%">
 												<?php if ($r->mail_type == '1') { ?>
 													<?php echo 'Biasa' ?>
 												<?php } else echo 'Rahasia' ?>
 											</td>
-											<td width="20%"><?php echo $r->description; ?></td>
+											<td width="20%"><?php echo $r->descrip; ?></td>
 											<td width="5%">
 												<div class="btn-group pull-right">
 													<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 

@@ -201,7 +201,7 @@ class Mail extends MY_Basic_Controller {
         $employee = $this->session->userdata('employee_id');
         $page = $this->uri->segment(3);
         $param = $this->uri->segment(4);
-		$this->data['data_all_mail'] = $this->mail_model->get_mail_inbox();
+		$this->data['data_all_mail'] = $this->mail_model->get_all_mail_inbox();
         $this->data['data_mail'] = $this->mail_model->get_mail_inbox_by($employee);
         $this->data['data_user'] = $this->user_model->get_job_title();
 		
@@ -276,7 +276,16 @@ class Mail extends MY_Basic_Controller {
             } else {
                 redirect('media/relogin');
             }
-        } else {
+        } 
+		else if ($page == 'auto_number') {
+		/*
+    if (isset($_GET['term'])){
+      $q = strtolower($_GET['term']);
+      $this->birds_model->get_bird($q);
+   
+  } */
+		}
+		else {
             $this->load->view('media/404');
         }
     }

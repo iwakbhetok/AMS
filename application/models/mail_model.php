@@ -384,5 +384,30 @@ class Mail_Model extends CI_Model {
             return $r->mail_registry_number;
         }
 	}
+	
+	function get_all_mail_inbox() {
+        $this->db
+                ->select('mi.*, mi.description as descrip, jt.job_title_name')
+                ->from('mail_inbox mi')
+				->join('job_title jt', 'jt.job_title_id = mi.mail_approved_by')
+                ->order_by('mi.mail_id desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+	
+	function get_mail_inbox_number() {
+        $this->db
+                ->select('mi.mail_number')
+                ->from('mail_inbox mi')
+                ->order_by('mi.mail_number desc');
+        $query = $this->db->get();
+		foreach ($query->result_array() as $row){
+			$new_set['id'] = htmlentities(stripslashes($row['mail_id']));
+			$new_set['value'] = htmlentities(stripslashes($row['mail_number']));
+			$row_set[] = $new_set;
+		}
+		echo json_encode($row_set);
+        //return $query->result();
+    }
 
 }

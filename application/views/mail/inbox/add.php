@@ -16,6 +16,13 @@ if (!defined('BASEPATH'))
   ------------------------------------------------------------------------------
  */
 ?>
+<script type="text/javascript">
+$(function(){
+  $("#mail_number").autocomplete({
+    source: "<?php echo base_url();?>mail/inbox/auto_number"
+  });
+});
+        </script>
 
 <section class="vbox">
     <header class="header bg-dark lt box-shadow">
@@ -36,7 +43,8 @@ if (!defined('BASEPATH'))
                                     </div>
                                     <div class="form-group">
                                         <label>Nomor Surat</label> 
-                                        <div> <input type="text" name="val[mail_number]" id="mail_number" class="form-control" placeholder="Ketikkan nomor surat"> </div>
+                                        <div> <input type="text" name="val[mail_number]" id="mail_number" class="form-control" placeholder="Ketikkan nomor surat"> 
+										</div>
                                     </div>
                                     <div class="form-group">
                                         <label>Tanggal Surat</label> 
