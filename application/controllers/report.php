@@ -26,7 +26,8 @@ class Report extends MY_Basic_Controller {
 
     public function inbox() {
         $page = $this->uri->segment(3);
-        
+        $this->data['data_all_mail'] = $this->mail_model->get_all_mail_inbox();
+		
         if ($this->session->userdata('is_logged_in') == true) {
             if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('report/inbox', $this->data);

@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -23,7 +23,7 @@ if (!defined('BASEPATH'))
             <i class="glyphicon glyphicon-plus"></i> 
             Tambah Disposisi
         </a>
-        <p class="h4 font-thin m-r m-b-sm">Daftar Disposisi Surat No :  <?php echo $mail_number; ?></p>
+        <p class="h4 font-thin m-r m-b-sm">Daftar Disposisi Surat No :  <?php //echo $mail_number; ?></p>
     </header>
     <section class="scrollable">
         <div class="slim-scroll padder" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">

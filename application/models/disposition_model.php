@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -35,7 +35,7 @@ class Disposition_Model extends CI_Model {
                 ->where('md.mail_disposition_to', $staff)                
                 ->order_by('md.mail_id', 'desc');
         $query = $this->db->get();
-		//var_dump($query);
+		//var_dump($this->db->last_query());
         return $query->result();
     }
     

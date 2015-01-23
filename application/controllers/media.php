@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -19,7 +19,15 @@ if (!defined('BASEPATH'))
 
 class Media extends MY_Basic_Controller {
 
-    public function magnificpopup() {
+    function __construct() {
+        parent::__construct();
+        $this->load->model('user_model');
+        $this->load->model('mail_model');
+        $this->load->model('disposition_model');
+        $this->load->helper(array('form', 'url'));
+    }
+	
+	public function magnificpopup() {
         if ($this->session->userdata('is_logged_in') == true) {
             if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('media/magnificpopup');
@@ -32,6 +40,7 @@ class Media extends MY_Basic_Controller {
     }    
 
     public function dashboard() {
+		$this->data['data_all_mail'] = $this->mail_model->get_all_mail_inbox();
         if ($this->session->userdata('is_logged_in') == true) {
             if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('media/dashboard', $this->data);

@@ -43,7 +43,7 @@ if (!defined('BASEPATH'))
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-share icon"> </i> Disposisi <span class="badge bg-white"><?php echo $mail_inbox_disposition + $mail_outbox_disposition ?></span> <b class="caret"></b> </a> <?php //var_dump($mail_inbox_disposition);?>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-share icon"> </i> Disposisi <span class="badge bg-white"><?php echo $mail_inbox_disposition + $mail_outbox_disposition ?></span> <b class="caret"></b> </a>
             <ul class="dropdown-menu animated fadeInUp">
                 <span class="arrow top"></span>
                 <li> <a href="<?php echo base_url('disposition/inbox/list') ?>"> <span class="badge bg-info pull-right"><?php echo $mail_inbox_disposition; ?></span> Disposisi Masuk</a> </li>

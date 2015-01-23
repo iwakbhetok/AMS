@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -51,6 +51,7 @@ class Mail extends MY_Basic_Controller {
 
         if ($page == 'list') {
             $dev = $this->mail_model->get_mail_detail($mail);
+			$this->data['mail_id'] = $mail;
             $this->data['mail_number'] = $mail;
             foreach ($dev as $values) {
                 foreach ($values as $key => $val) {
@@ -115,7 +116,23 @@ class Mail extends MY_Basic_Controller {
             } else {
                 redirect('media/relogin');
             }
-        } else {
+        } else if ($page == 'inbox') {
+			$this->data['mail_id'] = $mail;
+			if ($this->session->userdata('is_logged_in') == true) {
+                if ($this->session->userdata('user_group_level') == '1') {
+					$this->layout->displays('mail/disposition/list', $this->data);
+                    /*if ($mail == 'edit') {
+                        $this->layout->display('mail/disposition/edit', $this->data);
+                    }*/
+                } else {
+                    $this->layout->displays('mail/disposition/list', $this->data);
+                }
+			}
+			else {
+                redirect('media/relogin');
+            }
+		}
+		else {
             $this->load->view('media/404');
         }
     }

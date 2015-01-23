@@ -36,11 +36,12 @@ class Mail_Model extends CI_Model {
 
     function get_mail_inbox_by($staff) {
         $this->db
-                ->select('*')
-                ->from('mail_inbox')
-                ->where('mail_approved_by', $staff)
-                ->or_where('created_by', $staff)
-                ->order_by('mail_id desc');
+                ->select('mi.*, mi.description as descrip, jt.job_title_name')
+                ->from('mail_inbox mi')
+				->join('job_title jt', 'jt.job_title_id = mi.mail_approved_by')
+                ->where('mi.mail_approved_by', $staff)
+                ->or_where('mi.created_by', $staff)
+                ->order_by('mi.mail_id desc');
         $query = $this->db->get();
 		//echo $this->db->last_query();
         return $query->result();
@@ -239,7 +240,8 @@ class Mail_Model extends CI_Model {
     
     function get_max_mail_inbox_disposition($staff) {
         $this->db->select('count(md.mail_disposition_id)n')
-                ->from('mail_disposition md')                
+                ->from('mail_disposition md')
+				->join('mail_inbox mi', 'mi.mail_id = md.mail_id')
                 ->where('md.mail_disposition_to', $staff);
         $query = $this->db->get();
         $res = $query->result();

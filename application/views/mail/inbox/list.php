@@ -33,19 +33,7 @@ if (!defined('BASEPATH'))
             <div class="m-b-md"></div>
             <section class="panel panel-default">
 			<div class="m-b-md"></div>
-				<div role="tabpanel">
-
-				  <!-- Nav tabs -->
-				  <ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Surat Masuk</a></li>
-					<li role="presentation"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">Surat Masuk Lainnya</a></li>
-				  </ul>
-
-				  <!-- Tab panes -->
-				  <div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade in active" id="home">
-					
-						<div class="table-responsive">
+				<div class="table-responsive">
 							<table class="table table-striped m-b-none" data-ride="" id="dt_a">
 								<thead>
 									<tr>
@@ -53,6 +41,7 @@ if (!defined('BASEPATH'))
 										<th width="15%">Nomor Surat</th>
 										<th width="15%">Tanggal Surat</th>
 										<th width="25%">Perihal</th>
+										<th width="15%">Distribusi</th>
 										<th width="15%">Sifat Surat</th>
 										<th width="20%">Keterangan</th>
 										<th width="5%"></th>
@@ -68,12 +57,13 @@ if (!defined('BASEPATH'))
 											<td width="15%"><?php echo $r->mail_number; ?></td>                     
 											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
 											<td width="25%"><?php echo $r->mail_subject; ?></td>
+											<td width="25%"><?php echo $r->job_title_name; ?></td>
 											<td width="15%">
 												<?php if ($r->mail_type == '1') { ?>
 													<?php echo 'Biasa' ?>
 												<?php } else echo 'Rahasia' ?>
 											</td>
-											<td width="20%"><?php echo $r->description; ?></td>
+											<td width="20%"><?php echo $r->descrip; ?></td>
 											<td width="5%">
 												<div class="btn-group pull-right">
 													<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 
@@ -96,59 +86,7 @@ if (!defined('BASEPATH'))
 								</tbody>
 							</table>
 						</div>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="list">
-						<div class="table-responsive">
-							<table class="table table-striped m-b-none" data-ride="" id="dt_b">
-								<thead>
-									<tr>
-										<th width="10%">Nomor</th>                                
-										<th width="15%">Nomor Surat</th>
-										<th width="15%">Tanggal Surat</th>
-										<th width="25%">Perihal</th>
-										<th width="15%">Distribusi</th>
-										<th width="15%">Sifat Surat</th>
-										<th width="20%">Keterangan</th>
-										<th width="5%"></th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									$no = 1;
-									foreach ($data_all_mail as $r) {
-										?>
-										<tr>                
-											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
-											<td width="15%"><?php echo $r->mail_number; ?></td>                     
-											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
-											<td width="25%"><?php echo $r->mail_subject; ?></td>
-											<td width="25%"><?php echo $r->job_title_name; ?></td>
-											<td width="15%">
-												<?php if ($r->mail_type == '1') { ?>
-													<?php echo 'Biasa' ?>
-												<?php } else echo 'Rahasia' ?>
-											</td>
-											<td width="20%"><?php echo $r->descrip; ?></td>
-											<td width="5%">
-												<div class="btn-group pull-right">
-													<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 
-													<ul class="dropdown-menu">
-														<li><a class="popup-pdf" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>                                              
-													</ul>
-												</div>
-											</td>
-										</tr>
-										<?php
-										$no++;
-									}
-									?>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				  </div>
-
-				</div>
+				
             </section>
         </div>
     </section>
