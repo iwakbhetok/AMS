@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -61,7 +61,7 @@ if (!defined('BASEPATH'))
                                                 <li><a class="popup-pdf" href="<?php echo base_url('upload/outbox/' . $r->attachment) ?>">Baca Surat</a></li>
                                                 <li class="divider"></li>
                                                 <li><a href="javascript:void(0);">Setuju</a></li>
-                                                <li><a href="<?php echo base_url('mail/outbox/revision/' . $r->mail_id) ?>">Tidak</a></li>
+                                                <li><a href="<?php echo base_url('mail/outbox/revision/' . $r->id_mail_outbox) ?>">Tidak</a></li>
                                             </ul>
                                         </div>
                                     </td>

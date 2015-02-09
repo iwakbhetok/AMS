@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -21,7 +21,7 @@ if (!defined('BASEPATH'))
 <html lang="en" class="app">
     <head>
         <meta charset="utf-8" />
-        <title>Aplikasi Manajemen Surat</title>
+        <title>[beta version]Aplikasi Manajemen Surat</title>
         <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
@@ -29,6 +29,7 @@ if (!defined('BASEPATH'))
         <link rel="stylesheet" href="<?php echo base_url('assets/js/datatables/datatables.css'); ?>" type="text/css" />        
         <link rel="stylesheet" href="<?php echo base_url('assets/js/magnific/magnific-popup.css'); ?>" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url('assets/js/datepicker/datepicker.css'); ?>" type="text/css" />
+		<link rel="stylesheet" href="<?php echo base_url('assets/js/autocomplete/autocomplete.css'); ?>" type="text/css" />
 
         <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
 
@@ -98,7 +99,8 @@ if (!defined('BASEPATH'))
         <script src="<?php echo base_url('assets/js/parsley/parsley.min.js'); ?>"></script>
         <script src="<?php echo base_url('assets/js/parsley/parsley.extend.js'); ?>"></script>
 		
-		<script src="<?php echo base_url('assets/js/autocomplete/autocomplete.js'); ?>"></script>        	  
-
+		<script src="<?php echo base_url('assets/js/autocomplete/jquery.autocomplete.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/js/autocomplete/currency-autocomplete.js'); ?>"></script>
+		
     </body>
 </html>

@@ -29,19 +29,20 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('mail_inbox')
-                ->order_by('mail_id');
+                ->order_by('mail_inbox_id');
         $query = $this->db->get();
         return $query->result();
     }
 
     function get_mail_inbox_by($staff) {
         $this->db
-                ->select('mi.*, mi.description as descrip, jt.job_title_name')
+                ->select('mi.*, mi.description as descrip, emp.employee_name, jt.job_title_name')
                 ->from('mail_inbox mi')
-				->join('job_title jt', 'jt.job_title_id = mi.mail_approved_by')
+				->join('employee emp', 'emp.employee_id = mi.mail_approved_by')
+				->join('job_title jt', 'jt.job_title_id = emp.id_job_title')
                 ->where('mi.mail_approved_by', $staff)
                 ->or_where('mi.created_by', $staff)
-                ->order_by('mi.mail_id desc');
+                ->order_by('mi.mail_inbox_id desc');
         $query = $this->db->get();
 		//echo $this->db->last_query();
         return $query->result();
@@ -49,10 +50,10 @@ class Mail_Model extends CI_Model {
 
     function get_mail_inbox_by_id($mail) {
         $this->db
-                ->select('mail_id, mail_number, mail_date, mail_subject, mail_type, mail_approved_by, description, attachment')
+                ->select('mail_inbox_id, mail_number, mail_date, mail_subject, mail_type, mail_approved_by, description, attachment')
                 ->from('mail_inbox')
-                ->or_where('mail_id', $mail)
-                ->order_by('mail_id');
+                ->or_where('mail_inbox_id', $mail)
+                ->order_by('mail_inbox_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -62,7 +63,7 @@ class Mail_Model extends CI_Model {
                 ->select('im.*')
                 ->from('mail_outbox im')
                 ->where('created_by', $employee)
-                ->order_by('im.mail_id');
+                ->order_by('im.mail_outbox_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -71,8 +72,8 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('im.*, ma.mail_approval_status')
                 ->from('mail_outbox im')
-                ->join('mail_approval ma', 'im.mail_id = ma.mail_id')
-                ->order_by('im.mail_id');
+                ->join('mail_approval ma', 'im.mail_outbox_id = ma.mail_approval_id')
+                ->order_by('im.mail_outbox_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -83,17 +84,17 @@ class Mail_Model extends CI_Model {
                 ->from('mail_outbox')
                 ->where('mail_approved_by', $staff)
                 ->or_where('created_by', $staff)
-                ->order_by('mail_id');
+                ->order_by('mail_outbox_id');
         $query = $this->db->get();
         return $query->result();
     }
 
     function get_mail_outbox_by_id($mail) {
         $this->db
-                ->select('mail_id, mail_number, mail_date, mail_subject, mail_type, mail_to, description, attachment')
+                ->select('mail_outbox_id, mail_number, mail_date, mail_subject, mail_type, mail_to, description, attachment')
                 ->from('mail_outbox')
-                ->or_where('mail_id', $mail)
-                ->order_by('mail_id');
+                ->or_where('mail_outbox_id', $mail)
+                ->order_by('mail_outbox_id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -102,7 +103,7 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('mail_approval')
-                ->or_where('mail_id', $mail)
+                ->or_where('mail_approval_id', $mail)
                 ->order_by('mail_approval_id');
         $query = $this->db->get();
         return $query->result();
@@ -114,24 +115,24 @@ class Mail_Model extends CI_Model {
                 ->from('form fr')
                 ->join('employee em1', 'fr.to = em1.employee_id')
                 ->join('employee em2', 'fr.assign = em2.employee_id')
-                ->or_where('mail_id', $mail)
+                ->or_where('fr.mail_id', $mail)
                 ->order_by('form_id');
         $query = $this->db->get();
         return $query->result();
     }
 
     function update_mail_by_id($id, $data) {
-        $this->db->where('mail_id', $id);
+        $this->db->where('mail_inbox_id', $id);
         return $this->db->update('mail_inbox', $data);
     }
 
     function updateapproval($id, $data) {
-        $this->db->where('mail_id', $id);
+        $this->db->where('mail_approval_id', $id);
         return $this->db->update('mail_approval', $data);
     }
 
     function update_mail_outbox_by_id($id, $data) {
-        $this->db->where('mail_id', $id);
+        $this->db->where('mail_outbox_id', $id);
         return $this->db->update('mail_outbox', $data);
     }
 
@@ -200,10 +201,10 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('ma.*, mo.mail_number, mo.mail_date, mo.mail_subject, mo.attachment, em.employee_name, jt.job_title_name, em.nrp')
                 ->from('mail_approval ma')
-                ->join('mail_outbox mo', 'ma.mail_id = mo.mail_id')
-                ->join('form fr', 'ma.mail_id = fr.mail_id')
+                ->join('mail_outbox mo', 'ma.mail_approval_id = mo.mail_outbox_id')
+                ->join('form fr', 'ma.mail_approval_id = fr.mail_id')
                 ->join('employee em', 'ma.created_by = em.employee_id')
-                ->join('job_title jt', 'em.job_title_id = jt.job_title_id')
+                ->join('job_title jt', 'em.id_job_title = jt.job_title_id')
                 ->where('fr.to', $staff)
                 ->where('mo.mail_status', 1)
                 ->order_by('ma.mail_approval_id', 'desc')
@@ -213,9 +214,9 @@ class Mail_Model extends CI_Model {
     }        
 
     function get_max_mail_approval($staff) {
-        $this->db->select('count(ma.mail_id)n')
+        $this->db->select('count(ma.mail_approval_id)n')
                 ->from('mail_approval ma')
-                ->join('form fr', 'ma.mail_id = fr.mail_id')
+                ->join('form fr', 'ma.mail_approval_id = fr.mail_id')
                 ->where('fr.to', $staff);
         $query = $this->db->get();
         $res = $query->result();
@@ -226,9 +227,9 @@ class Mail_Model extends CI_Model {
     }
     
     function get_max_mail_revision($staff) {
-        $this->db->select('count(ma.mail_id)n')
+        $this->db->select('count(ma.mail_approval_id)n')
                 ->from('mail_revision ma')
-                ->join('form fr', 'ma.mail_id = fr.mail_id')
+                ->join('form fr', 'ma.mail_approval_id = fr.mail_id')
                 ->where('fr.to', $staff);
         $query = $this->db->get();
         $res = $query->result();
@@ -241,8 +242,9 @@ class Mail_Model extends CI_Model {
     function get_max_mail_inbox_disposition($staff) {
         $this->db->select('count(md.mail_disposition_id)n')
                 ->from('mail_disposition md')
-				->join('mail_inbox mi', 'mi.mail_id = md.mail_id')
-                ->where('md.mail_disposition_to', $staff);
+				->join('mail_inbox mi', 'mi.mail_inbox_id = md.id_mail_inbox')
+                ->where('md.mail_disposition_to', $staff)
+				->where('md.mail_disposition_status', '1');
         $query = $this->db->get();
         $res = $query->result();
         foreach ($res as $r) {
@@ -254,7 +256,8 @@ class Mail_Model extends CI_Model {
     function get_max_mail_outbox_disposition($staff) {
         $this->db->select('count(md.mail_disposition_id)n')
                 ->from('mail_disposition md')                
-                ->where('md.created_by', $staff);
+                ->where('md.created_by', $staff)
+				->where('md.mail_disposition_status', '1');
         $query = $this->db->get();
         $res = $query->result();
         foreach ($res as $r) {
@@ -264,12 +267,14 @@ class Mail_Model extends CI_Model {
     }
     
     function get_max_mail_inbox($staff) {
-        $this->db->select('count(mail_id)n')
+        $this->db->select('count(mail_inbox_id)n')
                 ->from('mail_inbox')                
                 ->where('mail_approved_by', $staff)
-                ->or_where('created_by', $staff);
+				->where('status_read', '0');
+                //->or_where('created_by', $staff);
         $query = $this->db->get();
         $res = $query->result();
+		//echo $this->db->last_query();
         foreach ($res as $r) {
             return $r->n;
         }
@@ -277,9 +282,10 @@ class Mail_Model extends CI_Model {
     }
     
     function get_max_mail_outbox($staff) {
-        $this->db->select('count(mail_id)n')
+        $this->db->select('count(mail_outbox_id)n')
                 ->from('mail_outbox')                
-                ->where('created_by', $staff);
+                ->where('created_by', $staff)
+				->where('mail_status', '0');
         $query = $this->db->get();
         $res = $query->result();
         foreach ($res as $r) {
@@ -290,14 +296,15 @@ class Mail_Model extends CI_Model {
 
     function get_mail_disposition($mail) {
         $this->db
-                ->select('md.*, mi.mail_id, mi.mail_number, mi.mail_date, mi.mail_subject, mi.mail_type, mi.attachment, em.employee_name, em.nrp, jt.job_title_name')
+                ->select('md.*, mi.mail_inbox_id, mi.mail_number, mi.mail_date, mi.mail_subject, mi.mail_type, mi.attachment, em.employee_name, em.nrp, jt.job_title_name')
                 ->from('mail_disposition md')
-                ->join('mail_inbox mi', 'md.mail_id = mi.mail_id')
+                ->join('mail_inbox mi', 'md.id_mail_inbox = mi.mail_inbox_id')
                 ->join('employee em', 'md.mail_disposition_to = em.employee_id')
-                ->join('job_title jt', 'em.job_title_id = jt.job_title_id')
-                ->where('md.mail_id', $mail)
-                ->order_by('md.mail_id', 'desc');
+                ->join('job_title jt', 'em.id_job_title = jt.job_title_id')
+                ->where('md.id_mail_inbox', $mail)
+                ->order_by('md.id_mail_inbox', 'desc');
         $query = $this->db->get();
+		//echo $this->db->last_query();
         return $query->result();
     }
 
@@ -305,9 +312,10 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('*')
                 ->from('mail_inbox')
-                ->where('mail_id', $mail_id);
+                ->where('mail_inbox_id', $mail_id);
         $query = $this->db->get();
         $res = $query->result();
+		//echo $this->db->last_query();
         return $res;
     }
 
@@ -315,11 +323,11 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('mi.*, md.mail_disposition_status, em.employee_name, em.nrp, jt.job_title_name')
                 ->from('mail_inbox mi')
-                ->join('mail_disposition md', 'mi.mail_id = md.mail_id')
+                ->join('mail_disposition md', 'mi.mail_inbox_id = md.id_mail_inbox')
                 ->join('employee em', 'mi.created_by = em.employee_id')
                 ->join('job_title jt', 'em.job_title_id = jt.job_title_id')
                 ->where('mi.mail_approved_by', $staff)
-                ->order_by('mi.mail_id', 'desc');
+                ->order_by('mi.mail_inbox_id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
@@ -328,9 +336,9 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('mr.*, mo.mail_number, mo.mail_date, mo.mail_subject, em.employee_name, jt.job_title_name, em.nrp')
                 ->from('mail_revision mr')
-                ->from('mail_outbox mo', 'ma.mail_id = mo.mail_id')
+                ->from('mail_outbox mo', 'mr.mail_id = mo.mail_outbox_id')
                 ->join('employee em', 'mr.created_by = em.employee_id')
-                ->join('job_title jt', 'em.job_title_id = jt.job_title_id')
+                ->join('job_title jt', 'em.id_job_title = jt.job_title_id')
                 ->order_by('mr.mail_revision_id', 'desc');
         $query = $this->db->get();
         return $query->result();
@@ -349,8 +357,8 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('ma.*, mo.mail_number, mo.mail_date, mo.mail_subject, mo.attachment, em.employee_name, jt.job_title_name, em.nrp')
                 ->from('mail_approval ma')
-                ->join('mail_outbox mo', 'ma.mail_id = mo.mail_id')
-                ->join('form fr', 'ma.mail_id = fr.mail_id')
+                ->join('mail_outbox mo', 'ma.mail_approval_id = mo.mail_outbox_id')
+                ->join('form fr', 'ma.mail_approval_id = fr.mail_id')
                 ->join('employee em', 'ma.created_by = em.employee_id')
                 ->join('job_title jt', 'em.job_title_id = jt.job_title_id')
                 ->where('fr.to', $staff)
@@ -391,8 +399,21 @@ class Mail_Model extends CI_Model {
         $this->db
                 ->select('mi.*, mi.description as descrip, jt.job_title_name')
                 ->from('mail_inbox mi')
-				->join('job_title jt', 'jt.job_title_id = mi.mail_approved_by')
-                ->order_by('mi.mail_id desc');
+				->join('employee emp', 'emp.employee_id = mi.mail_approved_by')
+				->join('job_title jt', 'emp.id_job_title = jt.job_title_id')
+                ->order_by('mi.mail_inbox_id desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+	
+	function get_all_mail_outbox() {
+        $this->db
+                ->select('mo.*, mo.description as descrip, jt.job_title_name')
+                ->from('mail_outbox mo')
+				->join('employee emp', 'emp.employee_id = mo.mail_to')
+				->join('job_title jt', 'emp.id_job_title = jt.job_title_id')
+				->where('mo.mail_registry_number !=','')
+                ->order_by('mo.mail_outbox_id desc');
         $query = $this->db->get();
         return $query->result();
     }
@@ -404,12 +425,44 @@ class Mail_Model extends CI_Model {
                 ->order_by('mi.mail_number desc');
         $query = $this->db->get();
 		foreach ($query->result_array() as $row){
-			$new_set['id'] = htmlentities(stripslashes($row['mail_id']));
+			$new_set['id'] = htmlentities(stripslashes($row['mail_inbox_id']));
 			$new_set['value'] = htmlentities(stripslashes($row['mail_number']));
 			$row_set[] = $new_set;
 		}
 		echo json_encode($row_set);
         //return $query->result();
     }
+	
+	function update_disposition($table, $data, $field_key) {
+        $this->db->update($table, $data, $field_key);
+    }
+	
+	function update_inbox_status($table, $data, $field_key) {
+        $this->db->update($table, $data, $field_key);
+    }
+	
+	function check_add_disposition_btn($mail, $employee_id) {
+        $this->db
+                ->select('*')
+                ->from('mail_disposition')
+                ->where('id_mail_inbox', $mail)
+				->where('created_by', $employee_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+	
+	function get_mail_numbers($q){
+		$this->db->select('*');
+		$this->db->like('mail_number', $q);
+		$query = $this->db->get('mail_inbox');
+		if($query->num_rows > 0){
+		  foreach ($query->result_array() as $row){
+			$new_row['label']=htmlentities(stripslashes($row['mail_from']));
+			$new_row['value']=htmlentities(stripslashes($row['mail_subject']));
+			$row_set[] = $new_row; //build an array
+		  }
+		  echo json_encode($row_set); //format the array into json data
+		}
+	}
 
 }

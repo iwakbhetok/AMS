@@ -19,11 +19,14 @@ if (!defined('BASEPATH'))
 
 <section class="vbox">
     <header class="header bg-dark lt box-shadow"> 
+		<?php if (in_array('tambahDisposisi', $btn_list)  && empty($result_btn)) { ?>   
         <a href="<?php echo base_url('mail/disposition/add/' . $mail_id) ?>" class="btn btn-info btn-sm pull-right"> 
             <i class="glyphicon glyphicon-plus"></i> 
             Tambah Disposisi
         </a>
-        <p class="h4 font-thin m-r m-b-sm">Daftar Disposisi Surat No :  <?php //echo $mail_number; ?></p>
+		<?php }
+			?>
+        <p class="h4 font-thin m-r m-b-sm">Daftar Disposisi Surat No :  <?php echo $mail_number; ?></p>
     </header>
     <section class="scrollable">
         <div class="slim-scroll padder" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">

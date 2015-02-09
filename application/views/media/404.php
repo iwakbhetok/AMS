@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -55,7 +55,7 @@ if (!defined('BASEPATH'))
         <!-- footer --> 
         <footer id="footer">
             <div class="text-center padder clearfix">
-                <p> <small>Aplikasi Manajemen Surat<br>&copy; 2014</small> </p>
+                <p> <small>Aplikasi Manajemen Surat<br>&copy; 2015</small> </p>
             </div>
         </footer>
         <!-- / footer -->

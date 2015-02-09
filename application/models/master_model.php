@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -90,5 +90,20 @@ class Master_Model extends CI_Model {
         }
         return n;
     }
+	
+	function get_record($table)
+	{
+		$this->db->select('*')
+                ->from($table);
+        $query = $this->db->get();
+		if ($query->num_rows() > 0)
+		{
+			$res = true;
+		}
+		else {
+			$res = false;
+		}
+		return $res;
+	}
 
 }

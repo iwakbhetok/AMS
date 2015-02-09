@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -48,14 +48,12 @@ if (!defined('BASEPATH'))
                                     <label>Distribusi</label> 
                                     <div> 
                                         <select name="val[mail_to]" id="mail_to" class="form-control m-b">
-                                            <option value =0>Pilih salah satu</option>
-                                            <option value="1">Kepada</option>
-                                            <!--
-                                            <?php foreach ($data_user as $r) { ?>
-                                                    <option value="<?php echo $r->employee_id; ?>"><?php echo $r->employee_name; ?></option>
+                                            <option value ="0">Pilih salah satu</option>
+                                            
+                                            <?php foreach ($data_user_parent as $r) { ?>
+                                                    <option value="<?php echo $r->employee_id; ?>"><?php echo $r->job_title_name; ?></option>
                                             <?php }
                                             ?>
-                                            -->
                                         </select>
                                     </div>
                                 </div>
@@ -85,6 +83,7 @@ if (!defined('BASEPATH'))
                                         <input type="hidden" name="val[created_date]" id="created_date" class="form-control" value="<?php echo get_current_date_time() ?>">
                                         <input type="hidden" name="val[updated_by]" id="updated_by" class="form-control" value="<?php echo $this->session->userdata('employee_id'); ?>">
                                         <input type="hidden" name="val[updated_date]" id="updated_date" class="form-control" value="<?php echo get_current_date_time() ?>">
+										<input type="hidden" name="val[status_read]" id="status_read" class="form-control" value="0">
                                     </div>
                                 </div>
                             </div>

@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -490,6 +490,44 @@ class Master extends MY_Basic_Controller {
             $this->load->view('media/404');
         }
     }
+	
+	public function previllages(){
+	$page = $this->uri->segment(3);
+	if ($this->session->userdata('is_logged_in') == true) {
+		$this->layout->display('master/previllages/list', $this->data);
+		} else {
+			redirect('media/relogin');
+		}
+	if ($page == 'update') {
+		if ($this->session->userdata('is_logged_in') == true) {
+			$menu_access = $this->menu_model->get_list_previllages();
+			foreach ($menu_access as $key => $value) {
+				$check = 'checkbox'.$value->id_user_menu.''.$value->id_user_group;
+				if ($this->input->post($check) != '')
+				{
+					$data = array(
+						'menu_access' => '1'
+					);
+					$this->menu_model->update($data, $value->id_user_group, $value->id_user_menu, 'user_menu_access');
+				}
+				else
+				{
+					$data = array(
+						'menu_access' => '0'
+					);
+					$this->menu_model->update($data, $value->id_user_group, $value->id_user_menu, 'user_menu_access');
+				}
+			}
+		}else {
+			redirect('media/relogin');
+		}
+		redirect('master/previllages');
+	}
+	if ($page == 'add') {
+	echo 'HERE';
+	}
+	
+	}
 
 }
 

@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -66,13 +66,13 @@ if (!defined('BASEPATH'))
                                             <ul class="dropdown-menu">
                                                 <li><a class="popup-pdf" href="<?php echo base_url('upload/outbox/' . $r->attachment) ?>">Baca Surat</a></li>
                                                 <?php if ($r->mail_status == '1') { ?>
-                                                    <li><a href="<?php echo base_url('mail/outbox/editapproval/' . $r->mail_id) ?>">Praninjau</a></li>
+                                                    <li><a href="<?php echo base_url('mail/outbox/editapproval/' . $r->mail_outbox_id) ?>">Praninjau</a></li>
                                                 <?php } else { ?> 
-                                                    <li><a href="<?php echo base_url('mail/outbox/approval/' . $r->mail_id) ?>">Persetujuan</a></li>                                                                                                                                                  
+                                                    <li><a href="<?php echo base_url('mail/outbox/approval/' . $r->mail_outbox_id) ?>">Persetujuan</a></li>                                                                                                                                                  
                                                     <?php } ?> 
-                                                    <li><a class="popup-pdf" href="<?php echo base_url('mail/revision/' . $r->mail_id) ?>">Revisi</a></li>
+                                                    <li><a class="popup-pdf" href="<?php echo base_url('mail/revision/' . $r->mail_outbox_id) ?>">Revisi</a></li>
                                                         <?php if ($r->created_by == $this->session->userdata('employee_id')) { ?>
-                                                        <li><a href="<?php echo base_url('mail/outbox/edit/' . $r->mail_id) ?>">Ubah</a></li>
+                                                        <li><a href="<?php echo base_url('mail/outbox/edit/' . $r->mail_outbox_id) ?>">Ubah</a></li>
                                                     <?php } ?>                                                
                                                 </ul>
                                             </div>

@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -35,47 +35,31 @@ class Disposition extends MY_Basic_Controller {
         $this->data['data_user'] = $this->user_model->get_employee($employee);
         if ($page == 'list') {
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     $this->layout->display('disposition/inbox/list', $this->data);
-                } else {
-                    $this->layout->displays('disposition/inbox/list', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
         } else if ($page == 'add') {
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     $this->layout->display('mail/inbox/add', $this->data);
-                } else {
-                    $this->layout->displays('mail/inbox/add', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
         } else if ($page == 'edit') {
             $this->data['data_disposition'] = $this->disposition_model->get_disposition_inbox();
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     if ($param == 'edit') {
                         $this->layout->display('mail/inbox/edit', $this->data);
                     }
-                } else {
-                    $this->layout->displays('mail/inbox/edit', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
         } else if ($page == 'delete') {
             $this->data['data_disposition'] = $this->disposition_model->get_disposition_inbox();
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     if ($param == 'edit') {
                         $this->layout->display('disposition/inbox', $this->data);
                     }
-                } else {
-                    $this->layout->displays('disposition/inbox', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
@@ -93,11 +77,7 @@ class Disposition extends MY_Basic_Controller {
         $this->data['data_user'] = $this->user_model->get_employee($employee);
         if ($page == 'list') {
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     $this->layout->display('disposition/outbox/list', $this->data);
-                } else {
-                    $this->layout->displays('disposition/outbox/list', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
@@ -114,26 +94,18 @@ class Disposition extends MY_Basic_Controller {
         } else if ($page == 'edit') {
             $this->data['data_disposition'] = $this->disposition_model->get_disposition_inbox();
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     if ($param == 'edit') {
                         $this->layout->display('mail/inbox/edit', $this->data);
                     }
-                } else {
-                    $this->layout->displays('mail/inbox/edit', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
         } else if ($page == 'delete') {
             $this->data['data_disposition'] = $this->disposition_model->get_disposition_inbox();
             if ($this->session->userdata('is_logged_in') == true) {
-                if ($this->session->userdata('user_group_level') == '1') {
                     if ($param == 'edit') {
                         $this->layout->display('disposition/inbox', $this->data);
                     }
-                } else {
-                    $this->layout->displays('disposition/inbox', $this->data);
-                }
             } else {
                 redirect('media/relogin');
             }
@@ -144,11 +116,7 @@ class Disposition extends MY_Basic_Controller {
 
     public function add() {
         if ($this->session->userdata('is_logged_in') == true) {
-            if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('disposition/add', $this->data);
-            } else {
-                $this->layout->displays('disposition/add', $this->data);
-            }
         } else {
             redirect('media/relogin');
         }
@@ -158,11 +126,7 @@ class Disposition extends MY_Basic_Controller {
         $this->data['data_disposition'] = $this->disposition_model->get_disposition_inbox();
 
         if ($this->session->userdata('is_logged_in') == true) {
-            if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('disposition/inbox', $this->data);
-            } else {
-                $this->layout->displays('disposition/inbox', $this->data);
-            }
         } else {
             redirect('media/relogin');
         }
@@ -172,11 +136,7 @@ class Disposition extends MY_Basic_Controller {
         $this->data['data_disposition'] = $this->disposition_model->get_disposition_outbox();
 
         if ($this->session->userdata('is_logged_in') == true) {
-            if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('disposition/outbox', $this->data);
-            } else {
-                $this->layout->displays('disposition/outbox', $this->data);
-            }
         } else {
             redirect('media/relogin');
         }

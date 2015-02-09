@@ -19,7 +19,7 @@ if (!defined('BASEPATH'))
 
 <section class="vbox">
     <header class="header bg-dark lt box-shadow">
-		<?php $job_title_id = array(6,13,18); if (in_array($this->session->userdata('job_title_id'), $job_title_id)) { ?>     
+		<?php if (in_array('tambahSuratMasuk', $btn_list)) { ?>     
         <a href="<?php echo base_url('mail/inbox/add') ?>" class="btn btn-info btn-sm pull-right"> 
             <i class="glyphicon glyphicon-plus"></i> 
             Tambah Surat Masuk
@@ -37,12 +37,14 @@ if (!defined('BASEPATH'))
 							<table class="table table-striped m-b-none" data-ride="" id="dt_a">
 								<thead>
 									<tr>
-										<th width="10%">Nomor</th>                                
+										<th width="5%" style="display:none;">No</th>
+										<th width="10%">Nomor Agenda</th>  
 										<th width="15%">Nomor Surat</th>
 										<th width="15%">Tanggal Surat</th>
-										<th width="25%">Perihal</th>
+										<th width="15%">Dari</th>
+										<th width="15%">Perihal</th>
 										<th width="15%">Distribusi</th>
-										<th width="15%">Sifat Surat</th>
+										<th width="15%">Status</th>
 										<th width="20%">Keterangan</th>
 										<th width="5%"></th>
 									</tr>
@@ -51,28 +53,54 @@ if (!defined('BASEPATH'))
 									<?php
 									$no = 1;
 									foreach ($data_mail as $r) {
-										?>
-										<tr>                
-											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
+										if (($r->status_read == '0') && ($r->mail_approved_by == $this->session->userdata('employee_id'))) {?>
+										<tr style="color:#C76114;font-weight:bold;">
+										<?php } else {?>
+										<tr>
+										<?php } ?>
+											<td width="5%" style="display:none;"><?php echo $no; ?></td>
+											<td width="10%"><?php echo $r->mail_registry_number; ?></td> 
 											<td width="15%"><?php echo $r->mail_number; ?></td>                     
 											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
-											<td width="25%"><?php echo $r->mail_subject; ?></td>
+											<td width="15%"><?php echo $r->mail_from; ?></td>
+											<td width="15%"><?php echo $r->mail_subject; ?></td>
 											<td width="25%"><?php echo $r->job_title_name; ?></td>
 											<td width="15%">
-												<?php if ($r->mail_type == '1') { ?>
-													<?php echo 'Biasa' ?>
-												<?php } else echo 'Rahasia' ?>
+												<?php if ($r->status_inbox == '1' ? print '<b>Selesai</b>' : print '<b><font style="color:#cc0000;">Dalam Proses</font></b>'); ?>
 											</td>
 											<td width="20%"><?php echo $r->descrip; ?></td>
 											<td width="5%">
 												<div class="btn-group pull-right">
 													<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 
 													<ul class="dropdown-menu">
-														<li><a class="popup-pdf" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>
-														<li><a href="<?php echo base_url('mail/disposition/list/' . $r->mail_id) ?>">Disposisi</a></li>
+														<?php if ($r->mail_approved_by != $this->session->userdata('employee_id')) {?>
+														<li><a class="popup-pdf" id="read_mail" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>
+														<?php } else {?>
+														<li><a class="popup-pdf" id="read_mail_<?php echo $r->mail_inbox_id;?>" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>
+														<?php }?>
+														<script>
+														$("#read_mail_<?php echo $r->mail_inbox_id;?>").click(function () {
+																var data = <?php echo $r->mail_inbox_id;?>;
+																$.ajax({
+
+																	type: 'POST',
+																	url:"<?php echo base_url('mail/inbox/read/' . $r->mail_inbox_id) ?>",
+																	data : { pid : data},
+																	success:function(result){
+																		MagnificPopup();
+																		window.location.reload(true);
+
+																}});
+															});
+														</script>
+														<?php if ($r->created_by == $this->session->userdata('employee_id') || $r->mail_approved_by == $this->session->userdata('employee_id') || $r->approved_by == $this->session->userdata('employee_id')) {?>
+														<li><a href="<?php echo base_url('mail/disposition/list/' . $r->mail_inbox_id) ?>">Disposisi</a></li>
+															<?php } else {?>
+														
+														<?php }?>
 														<?php if ($r->created_by == $this->session->userdata('employee_id')) {
 															?>
-															<li><a href="<?php echo base_url('mail/inbox/edit/' . $r->mail_id) ?>">Ubah</a></li>
+															<li><a href="<?php echo base_url('mail/inbox/edit/' . $r->mail_inbox_id) ?>">Ubah</a></li>
 														<?php }
 														?>                                                
 													</ul>

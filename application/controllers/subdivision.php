@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -45,5 +45,5 @@ class Subdivision extends MY_Basic_Controller {
 
 }
 
-/* End of file user.php */
-/* Location: ./application/controllers/user.php */
+/* End of file subdivision.php */
+/* Location: ./application/controllers/subdivision.php */

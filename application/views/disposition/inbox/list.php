@@ -50,14 +50,23 @@ if (!defined('BASEPATH'))
                                     <td width="10%"><?php echo $r->mail_number; ?></td>                                    
                                     <td width="10%"><?php echo $r->mail_date; ?></td>                                     
                                     <td width="30%"><?php echo $r->mail_subject; ?></td>   
-                                    <td width="10%"><?php echo $r->mail_type; ?></td>
-                                    <td width="10%"><?php echo $r->mail_disposition_status; ?></td>                                                                                                                                                                   
+                                    <td width="10%">
+									<?php if ($r->mail_type == '1') { ?>
+													<?php echo 'Biasa' ?>
+												<?php } else if ($r->mail_type == '2') { echo 'Segera';}
+														else if($r->mail_type == '3') {echo 'Perlu Perhatian Khusus';}										
+														else {echo 'Perhatian Batas Waktu';} ?>
+									</td>
+                                    <td width="10%"><?php ($r->mail_disposition_status == '1' ? print '<b><font style="color:#cc0000;">Dalam Proses</font></b>' : print '<b>Selesai</b>' ); ?></td>                                                                                                                                                                   
                                     <td width="5%">
                                         <div class="btn-group pull-right">
                                             <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 
                                             <ul class="dropdown-menu">
-                                                <li><a href="<?php echo base_url('mail/disposition/list/' . $r->mail_id) ?>">Lihat Disposisi</a></li>
+                                                <li><a href="<?php echo base_url('mail/disposition/list/' . $r->mail_inbox_id) ?>">Lihat Disposisi</a></li>
                                                 <li><a class="popup-pdf" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>
+												<?php if ($r->mail_disposition_status == '1') {?>
+												<li><a href="<?php echo base_url('mail/disposition/close/' . $r->mail_inbox_id) ?>">Disposisi Selesai</a></li>
+												<?php } else {}?>
                                                 <?php if ($r->created_by == $this->session->userdata('employee_id')) {
                                                     ?>
                                                     <li><a href="<?php echo base_url('disposition/edit') ?>">Ubah</a></li>
@@ -66,6 +75,11 @@ if (!defined('BASEPATH'))
                                         </div>
                                     </td>
                                 </tr>
+								<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
+									<h2>Konfirmasi Disposisi ???</h2>
+									<p>Disposisi telah selesai.</p>
+										<a href="<?php echo base_url('mail/disposition/close/' . $r->mail_inbox_id) ?>" type="submit" class="btn btn-danger btn-s-xs">Ya</a>
+								</div>
                                 <?php
                                 $no++;
                             }
@@ -77,3 +91,21 @@ if (!defined('BASEPATH'))
         </div>
     </section>
 </section>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+    });
+</script>

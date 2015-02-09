@@ -51,7 +51,8 @@ if (!defined('BASEPATH'))
 									  <!-- Nav tabs -->
 									  <ul class="nav nav-tabs" role="tablist">
 										<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Statistik Surat</a></li>
-										<li role="presentation"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">Daftar Surat Masuk</a></li>
+										<li role="presentation"><a href="#list_inbox" aria-controls="list_inbox" role="tab" data-toggle="tab">Daftar Surat Masuk</a></li>
+										<li role="presentation"><a href="#list_outbox" aria-controls="list_outbox" role="tab" data-toggle="tab">Daftar Surat Keluar</a></li>
 									  </ul>
 
 									  <!-- Tab panes -->
@@ -67,17 +68,19 @@ if (!defined('BASEPATH'))
                                         </div>
 											
 										</div>
-										<div role="tabpanel" class="tab-pane fade" id="list">
+										<div role="tabpanel" class="tab-pane fade" id="list_inbox">
 											<div class="table-responsive">
 							<table class="table table-striped m-b-none" data-ride="" id="dt_b">
 								<thead>
 									<tr>
-										<th width="10%">Nomor</th>                                
+										<th width="5%" style="display:none;">No</th>                                
+										<th width="10%">Nomor Arsip</th>                                
 										<th width="15%">Nomor Surat</th>
 										<th width="15%">Tanggal Surat</th>
-										<th width="25%">Perihal</th>
+										<th width="15%">Dari</th>
+										<th width="15%">Perihal</th>
 										<th width="15%">Distribusi</th>
-										<th width="15%">Sifat Surat</th>
+										<th width="15%">Status</th>
 										<th width="20%">Keterangan</th>
 										<th width="5%"></th>
 									</tr>
@@ -88,10 +91,65 @@ if (!defined('BASEPATH'))
 									foreach ($data_all_mail as $r) {
 										?>
 										<tr>                
+											<td width="5%" style="display:none;"><?php echo $no; ?></td>
 											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
 											<td width="15%"><?php echo $r->mail_number; ?></td>                     
 											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
-											<td width="25%"><?php echo $r->mail_subject; ?></td>
+											<td width="15%"><?php echo $r->mail_from; ?></td>
+											<td width="15%"><?php echo $r->mail_subject; ?></td>
+											<td width="25%"><?php echo $r->job_title_name; ?></td>
+											<td width="15%">
+												<?php ($r->status_inbox == '1' ? print '<b>Selesai</b>' : print '<b><font style="color:#cc0000;">Dalam Proses</font></b>' );?>
+											</td>
+											<td width="20%"><?php echo $r->descrip; ?></td>
+											<td width="5%">
+												<div class="btn-group pull-right">
+													<button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Pilihan <span class="caret"></span></button> 
+													<ul class="dropdown-menu">
+														<li><a class="popup-pdf" href="<?php echo base_url('upload/inbox/' . $r->attachment) ?>">Baca Surat</a></li>                                              
+													</ul>
+												</div>
+											</td>
+										</tr>
+										<?php
+										$no++;
+									}
+									?>
+								</tbody>
+							</table>
+						</div>
+										</div>
+										
+										
+										<div role="tabpanel" class="tab-pane fade" id="list_outbox">
+											<div class="table-responsive">
+							<table class="table table-striped m-b-none" data-ride="" id="dt_c">
+								<thead>
+									<tr>
+										<th width="5%" style="display:none;">No</th>
+										<th width="10%">Nomor Arsip</th>                                
+										<th width="15%">Nomor Referensi Surat</th>
+										<th width="15%">Tanggal Surat</th>
+										<th width="15%">Dari</th>
+										<th width="15%">Perihal</th>
+										<th width="15%">Distribusi</th>
+										<th width="15%">Sifat Surat</th>
+										<th width="20%">Keterangan</th>
+										<th width="5%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$no = 1;
+									foreach ($data_mail_outbox as $r) {
+										?>
+										<tr>                
+											<td width="5%" style="display:none;"><?php echo $no; ?></td>                                      
+											<td width="10%"><?php echo $r->mail_registry_number; ?></td>                                      
+											<td width="15%"><?php echo $r->mail_number; ?></td>                     
+											<td width="15%"><?php echo convert_date_to_indonesia_format($r->mail_date); ?></td> 
+											<td width="15%"><?php echo $r->created_by; ?></td>
+											<td width="15%"><?php echo $r->mail_subject; ?></td>
 											<td width="25%"><?php echo $r->job_title_name; ?></td>
 											<td width="15%">
 												<?php if ($r->mail_type == '1') { ?>

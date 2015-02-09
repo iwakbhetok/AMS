@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -30,48 +30,46 @@ if (!defined('BASEPATH'))
         </a>
     </div>
     <ul class="nav navbar-nav hidden-xs hidden-sm">
-        <li>
-            <a href="<?php echo base_url('media/dashboard') ?>"> <i class="i i-home icon"> </i> Beranda </a>             
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-mail icon"> </i> Transaksi <span class="badge bg-white">0</span> <b class="caret"></b> </a> 
+		<?php $user_group_id = $this->session->userdata('user_group_id'); foreach ($menu_headers as $r) {
+			if ($r->url == '#') {
+		?>
+		<li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i <?php echo $r->icon;?> icon"> </i> <?php echo $r->name;?> <span class="badge bg-white"><?php echo $mail_inbox_disposition + $mail_outbox_disposition;?></span> <b class="caret"></b> </a> 
             <ul class="dropdown-menu animated fadeInUp">
                 <span class="arrow top"></span>
-                <li> <a href="<?php echo base_url('mail/inbox/list') ?>"> <span class="badge bg-info pull-right">0</span>Surat Masuk</a> </li>
-                <li> <a href="<?php echo base_url('mail/outbox/list') ?>"> <span class="badge bg-info pull-right">0</span> Surat Keluar </a> </li>
-                <li class="divider"></li>
-                <li> <a href="<?php echo base_url('mail/report/inbox') ?>"> Laporan Surat Masuk</a> </li>
-                <li> <a href="<?php echo base_url('mail/report/outbox') ?>"> Laporan Surat Keluar</a> </li>
+				<?php $sub_headers = $this->menu_model->get_sub_header_menu($r->user_menu_id, $user_group_id);
+					foreach ($sub_headers as $sub){
+				?>
+                <li> <a href="<?php echo base_url($sub->url) ?>"> 
+					<?php if ($sub->notif == '1') {?>
+						<span class="badge bg-info pull-right">
+						<?php if($sub->deskripsi == 'disposisi masuk') { echo $mail_inbox_disposition;}
+							  else if($sub->deskripsi == 'disposisi keluar') {echo $mail_outbox_disposition;}
+							  else {}
+						?></span>
+					<?php } else {}?>
+				<?php echo $sub->name;?></a> </li>
+				<?php } ?>
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-share icon"> </i> Disposisi <span class="badge bg-white">0</span> <b class="caret"></b> </a> 
-            <ul class="dropdown-menu animated fadeInUp">
-                <span class="arrow top"></span>
-                <li> <a href="<?php echo base_url('mail/disposition/inbox') ?>"> <span class="badge bg-info pull-right">0</span> Disposisi Masuk</a> </li>
-                <li> <a href="<?php echo base_url('mail/disposition/outbox') ?>"> <span class="badge bg-info pull-right">0</span> Disposisi Keluar</a> </li>                                
-            </ul>
+		<?php } else {?>
+		<li>
+            <?php if ($r->notif == '1'){?>
+			<a href="<?php echo base_url($r->url) ?>"> <i class="i <?php echo $r->icon;?> icon"> </i><?php echo $r->name;?> 
+			<span class="badge bg-white">
+			<?php if($r->deskripsi == 'surat masuk') { echo $mail_inbox;}
+					else if($r->deskripsi == 'surat keluar') {echo $mail_outbox;}
+					else if($r->deskripsi == 'disposisi masuk') {echo $mail_inbox_disposition;}
+					else if($r->deskripsi == 'disposisi keluar') {echo $mail_outbox_disposition;}
+					else {}
+				?>
+			</span>
+			</a>
+			<?php } else {?>
+			<a href="<?php echo base_url($r->url) ?>"> <i class="i <?php echo $r->icon;?> icon"> </i><?php echo $r->name;?> </a>
+			<?php }?>
         </li>
-        <li>
-            <a href="<?php echo base_url('mail/approval/list') ?>"> <i class="i i-checkmark2 icon"> </i> Persetujuan <span class="badge bg-white">0</span> </a> 
-        </li>
-        <li>
-            <a href="<?php echo base_url('mail/revision/list') ?>"> <i class="i i-cycle icon"> </i> Revisi <span class="badge bg-white">0</span> </a> 
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="i i-cog2 icon"> </i> Master <b class="caret"></b> </a> 
-            <ul class="dropdown-menu animated fadeInUp"> 
-                <span class="arrow top"></span>
-                <li> <a href="<?php echo base_url('master/department/list'); ?>"> Daftar Biro </a> </li>
-                <li> <a href="<?php echo base_url('master/division/list'); ?>"> Daftar Bagian </a> </li>
-                <li> <a href="<?php echo base_url('master/subdivision/list'); ?>"> Daftar Sub Bagian </a> </li>
-                <li> <a href="<?php echo base_url('master/unit/list'); ?>"> Daftar Unit </a> </li>
-                <li> <a href="<?php echo base_url('master/jobtitle/list'); ?>"> Daftar Jabatan </a> </li>
-                <li class="divider"></li>
-                <li> <a href="<?php echo base_url('user/group/list'); ?>"> Daftar Group Staff </a> </li>                
-                <li> <a href="<?php echo base_url('user/account/list'); ?>"> Daftar Staff </a> </li>
-            </ul>
-        </li>
+		<?php } } ?>
     </ul>
     <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">        
         <li class="dropdown">
@@ -79,7 +77,7 @@ if (!defined('BASEPATH'))
                 <span class="thumb-sm avatar pull-left">
                     <img src="<?php echo base_url('assets/images/userz.png'); ?>">
                 </span>                 
-                <?php echo $this->session->userdata('user_group_name'); ?> <b class="caret"></b> </a> 
+                <?php echo $this->session->userdata('employee_name'); ?> <b class="caret"></b> </a> 
             <ul class="dropdown-menu animated fadeInUp"> 
                 <span class="arrow top"></span>
                 <li> <a href="<?php echo base_url('media/logout'); ?>"> Logout </a> </li>

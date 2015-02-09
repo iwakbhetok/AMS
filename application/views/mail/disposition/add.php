@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -24,24 +24,21 @@ if (!defined('BASEPATH'))
     <section class="scrollable">
         <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
             <div class="wrapper">
-                <?php echo form_open_multipart('mail/disposition/create') ?>                
+                <?php echo form_open_multipart('mail/disposition/create/' . $mail_id) ?>                
                 <section class="panel panel-default">   
                     <header class="panel-heading font-bold"> Form Disposisi </header>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-6">                                
                                 <div class="form-group">
-                                    <label>Kepada</label> 
-                                    <div> 
-                                        <select name="val[mail_disposition_to]" id="mail_approved_by" class="form-control m-b">
-                                            <option value =0>Pilih salah satu</option>
-                                            <?php foreach ($data_user as $r) { ?>
-                                                <option value="<?php echo $r->employee_id; ?>"><?php echo $r->employee_name; ?></option>
-                                            <?php }
+                                    <label>Kepada</label>
+									<div class="checkbox">
+									<?php foreach ($disposition_to as $r) { ?>
+										<input class="form-control m-b" type="checkbox" id="mail_disposition_to" name="mail_disposition_to[]" value="<?php echo $r->employee_id; ?>"><?php echo $r->job_title_name; ?><br/><br/>
+										<?php }
                                             ?>
-                                        </select>
-                                    </div>
-                                </div>                                
+									</div>
+                                </div>								
                             </div>
                             <div class="col-sm-6">                                                                    
                                 <div class="form-group">
@@ -64,7 +61,7 @@ if (!defined('BASEPATH'))
                                 </div>
                                 <div class="form-group">                                         
                                     <div> 
-                                        <input type="hidden" name="val[mail_id]" id="status" class="form-control" value="<?php echo $mail_id; ?>">
+                                        <input type="hidden" name="val[id_mail_inbox]" id="status" class="form-control" value="<?php echo $mail_id; ?>">
                                         <input type="hidden" name="val[created_by]" id="created_by" class="form-control" value="<?php echo $this->session->userdata('employee_id'); ?>">
                                         <input type="hidden" name="val[created_date]" id="created_date" class="form-control" value="<?php echo get_current_date_time() ?>">
                                         <input type="hidden" name="val[updated_by]" id="updated_by" class="form-control" value="<?php echo $this->session->userdata('employee_id'); ?>">

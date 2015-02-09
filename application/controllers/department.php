@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -43,5 +43,5 @@ class Department extends MY_Basic_Controller {
 
 }
 
-/* End of file user.php */
-/* Location: ./application/controllers/user.php */
+/* End of file department.php */
+/* Location: ./application/controllers/department.php */

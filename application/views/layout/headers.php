@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -29,7 +29,7 @@ if (!defined('BASEPATH'))
     </div>
     <ul class="nav navbar-nav hidden-xs hidden-sm">
         <li>
-            <a href="<?php echo base_url('media/dashboard') ?>"> <i class="i i-home icon"> </i> Beranda </a>             
+            <a href="<?php echo base_url('media/dashboard') ?>"> <i class="i i-home icon"> </i> Beranda B</a>             
         </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-mail icon"> </i> Transaksi <span class="badge bg-white"><?php echo $mail_inbox  + $mail_outbox ?></span> <b class="caret"></b> </a> 

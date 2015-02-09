@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -90,7 +90,7 @@ if (!defined('BASEPATH'))
                         </div>
                         <footer class="panel-footer text-right bg-light lter">
                             <button type="submit" class="btn btn-success btn-s-xs">Simpan</button>                            
-                            <a href="<?php echo base_url('mail/inbox/list') ?>" type="submit" class="btn btn-danger btn-s-xs">Batal</a>
+                            <a href="<?php echo base_url('mail/approval') ?>" type="submit" class="btn btn-danger btn-s-xs">Batal</a>
                         </footer>
                     </section>
                     <?php

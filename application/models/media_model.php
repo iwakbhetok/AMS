@@ -8,9 +8,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -69,19 +69,20 @@ class Media_Model extends CI_Model {
         $user = anti_injection($user);
         $password = anti_injection($password);
         $this->db->
-                select('u.*, jt.job_title_name, ug.user_group_name, ug.user_group_level, dept.department_name, dv.division_name, sdv.sub_division_name, un.unit_name')
+                select('u.*, jt.job_title_name, ug.user_group_id, ug.user_group_name, ug.user_group_level, dept.department_name, jt.id_department')
                 ->from('employee u')
-                ->join('user_group ug', 'ug.user_group_id = u.user_group_id')
-                ->join('department dept', 'dept.department_id = u.department_id')
-                ->join('division dv', 'dv.division_id = u.division_id')
-                ->join('sub_division sdv', 'sdv.sub_division_id = u.sub_division_id')
-                ->join('unit un', 'un.unit_id = u.unit_id')
-                ->join('job_title jt', 'jt.job_title_id = u.job_title_id')
+				->join('job_title jt', 'jt.job_title_id = u.id_job_title')
+                ->join('user_group ug', 'ug.user_group_id = jt.id_user_group')
+                ->join('department dept', 'dept.department_id = jt.id_department')
+                //->join('division dv', 'dv.division_id = u.division_id')
+                //->join('sub_division sdv', 'sdv.sub_division_id = u.sub_division_id')
+                //->join('unit un', 'un.unit_id = u.unit_id')      
                 ->where('u.user_name', $user)
                 ->where('u.user_password', md5($password))
                 ->limit(1);
         $query = $this->db->get();
         $res = $query->result();
+		//print_r($this->db->last_query());
         if (count($res) > 0) {
             $this->user_login = $res;
             $result = TRUE;

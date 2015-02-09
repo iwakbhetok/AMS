@@ -29,11 +29,7 @@ class Media extends MY_Basic_Controller {
 	
 	public function magnificpopup() {
         if ($this->session->userdata('is_logged_in') == true) {
-            if ($this->session->userdata('user_group_level') == '1') {
-                $this->layout->display('media/magnificpopup');
-            } else {
-                $this->layout->displays('media/magnificpopup');
-            }
+			$this->layout->display('media/magnificpopup', $this->data);
         } else {
             redirect('media/relogin');
         }
@@ -41,12 +37,9 @@ class Media extends MY_Basic_Controller {
 
     public function dashboard() {
 		$this->data['data_all_mail'] = $this->mail_model->get_all_mail_inbox();
+		$this->data['data_mail_outbox'] = $this->mail_model->get_all_mail_outbox();
         if ($this->session->userdata('is_logged_in') == true) {
-            if ($this->session->userdata('user_group_level') == '1') {
                 $this->layout->display('media/dashboard', $this->data);
-            } else {
-                $this->layout->displays('media/dashboard', $this->data);
-            }
         } else {
             redirect('media/relogin');
         }
@@ -61,20 +54,15 @@ class Media extends MY_Basic_Controller {
                 $data = array(
                     'is_logged_in' => TRUE,                                       
                     'employee_id' => $r->employee_id,
+					'user_group_id' => $r->user_group_id,
                     'user_group_level' => $r->user_group_level,
-                    'department_id' => $r->department_id,
-                    'division_id' => $r->division_id,
-                    'sub_division_id' => $r->sub_division_id,
-                    'unit_id' => $r->unit_id,
-                    'job_title_id' => $r->job_title_id,
-                    'employee_name' => $r->employee_name,
-                    'gender' => $r->gender == 1 ? "Male" : "Female",
+                    'id_department' => $r->id_department,
+                    'id_job_title' => $r->id_job_title,
+					'gender' => $r->gender,
                     'user_name' => $r->user_name,
                     'user_group_name' => $r->user_group_name, 
                     'department_name' => $r->department_name,
-                    'division_name' => $r->division_name,
-                    'sub_division_name' => $r->sub_division_name,
-                    'unit_name' => $r->unit_name,
+					'employee_name' => $r->employee_name,
                     'job_title_name' => $r->job_title_name,
                     'pangkat' => $r->pangkat,
                     'last_logged_in' => $r->last_logged_in,

@@ -7,9 +7,9 @@ if (!defined('BASEPATH'))
   AMS Applications
   ------------------------------------------------------------------------------
 
-  Author : Dadang Nurjaman
-  Email  : mail.nurjaman@gmail.com
-  @2014
+  Author : Abdul Gofur
+  Email  : abdul.createit@gmail.com
+  @2015
 
   ------------------------------------------------------------------------------
   Mabes Polri
@@ -57,8 +57,8 @@ if (!defined('BASEPATH'))
                                     <div> 
                                         <select name="form[to]" class="form-control m-b">
                                             <option value =0>Pilih salah satu</option>
-                                            <?php foreach ($data_user as $r) { ?>
-                                                <option value="<?php echo $r->employee_id; ?>"><?php echo $r->employee_name; ?></option>
+                                            <?php foreach ($data_user_parent as $r) { ?>
+                                                <option value="<?php echo $r->employee_id; ?>"><?php echo $r->job_title_name; ?></option>
                                             <?php }
                                             ?>
                                         </select>                                          
@@ -70,7 +70,7 @@ if (!defined('BASEPATH'))
                                         <select name="form[assign]" class="form-control m-b">
                                             <option value =0>Pilih salah satu</option>
                                             <?php foreach ($data_user as $r) { ?>
-                                                <option value="<?php echo $r->employee_id; ?>"><?php echo $r->employee_name; ?></option>
+                                                <option value="<?php echo $r->employee_id; ?>"><?php echo $r->job_title_name; ?></option>
                                             <?php }
                                             ?>
                                         </select>                                          
@@ -79,9 +79,9 @@ if (!defined('BASEPATH'))
 
                                 <div class="form-group">                                         
                                     <div>       
-                                        <input type="hidden" name="id" id="mail_id" class="form-control" value="<?php echo $mail_id ?>"/>
+                                        <input type="hidden" name="id" id="id_mail_outbox" class="form-control" value="<?php echo $mail_id ?>"/>
                                         <input type="hidden" name="mail[mail_status]" class="form-control" value="1">
-                                        <input type="hidden" name="val[mail_id]" class="form-control" value="<?php echo $mail_id ?>">
+                                        <input type="hidden" name="val[id_mail_outbox]" class="form-control" value="<?php echo $mail_id ?>">
                                         <input type="hidden" name="form[mail_id]" class="form-control" value="<?php echo $mail_id ?>">
 
                                         <input type="hidden" name="val[created_by]" class="form-control" value="<?php echo $this->session->userdata('employee_id'); ?>">

@@ -29,6 +29,13 @@
                 "sLengthMenu": "_MENU_ records per page"
             }
         });
+		$('#dt_c').dataTable({
+            "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ records per page"
+            }
+        });
 
   // datatable
   $('[data-ride="datatables"]').each(function() {
